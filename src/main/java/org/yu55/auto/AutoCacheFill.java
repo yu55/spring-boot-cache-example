@@ -1,4 +1,4 @@
-package org.yu55;
+package org.yu55.auto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("app")
-class SampleClient {
+@Profile("auto")
+class AutoCacheFill {
 
 	private static final List<String> SAMPLE_COUNTRY_CODES = Arrays.asList("AF", "AX",
 			"AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "AR", "AM", "AW", "AU", "AT",
@@ -34,13 +34,13 @@ class SampleClient {
 			"TK", "TO", "TT", "TN", "TR", "TM", "TC", "TV", "UG", "UA", "AE", "GB", "US",
 			"UM", "UY", "UZ", "VU", "VE", "VN", "VG", "VI", "WF", "EH", "YE", "ZM", "ZW");
 
-	private final CountryRepository countryService;
+	private final CountryRepository countryRepository;
 
 	private final Random random;
 
 	@Autowired
-	public SampleClient(CountryRepository countryService) {
-		this.countryService = countryService;
+	public AutoCacheFill(CountryRepository countryRepository) {
+		this.countryRepository = countryRepository;
 		this.random = new Random();
 	}
 
@@ -49,7 +49,7 @@ class SampleClient {
 		String randomCode = SAMPLE_COUNTRY_CODES
 				.get(this.random.nextInt(SAMPLE_COUNTRY_CODES.size()));
 		System.out.println("Looking for country with code '" + randomCode + "'");
-		this.countryService.findByCode(randomCode);
+		this.countryRepository.findByCode(randomCode);
 	}
 
 }

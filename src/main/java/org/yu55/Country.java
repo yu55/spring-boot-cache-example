@@ -34,4 +34,10 @@ public class Country implements Serializable {
 		return this.code.hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return "Country{" +
+				"code='" + code + '\'' +
+				'}';
+	}
 }

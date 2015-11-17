@@ -12,7 +12,8 @@ public class SpringBootCacheExampleApplication {
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder().sources(SpringBootCacheExampleApplication.class)
-				.profiles("app").run(args);
+//				.profiles("manual").run(args);
+				.profiles("auto").run(args);
 	}
 
 }
