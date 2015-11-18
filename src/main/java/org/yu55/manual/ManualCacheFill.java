@@ -1,5 +1,7 @@
 package org.yu55.manual;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -15,6 +17,8 @@ import java.util.Random;
 @Component
 @Profile("manual")
 public class ManualCacheFill {
+
+	private static final Logger logger = LoggerFactory.getLogger(ManualCacheFill.class);
 
 	private static final List<String> SAMPLE_COUNTRY_CODES = Arrays.asList("AF", "AX",
 			"AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "AR", "AM", "AW", "AU", "AT",
@@ -53,11 +57,11 @@ public class ManualCacheFill {
 				.get(this.random.nextInt(SAMPLE_COUNTRY_CODES.size()));
 
 		Cache cache = cacheManager.getCache("countries");
-		System.out.println("Looking for country with code '" + randomCode + "'");
+		logger.info("Looking for country with code '{}'", randomCode);
 		if (cache.get(randomCode) == null) { // cache.putIfAbsent also possible here!
-			System.out.println("\tCache miss. Adding to cache.");
+			logger.info("\tCache miss. Adding to cache.");
 			cache.put(randomCode, new Country(randomCode));
 		}
-		System.out.println("Cache hit: " + cache.get(randomCode).get());
+		logger.info("Cache hit: {}", cache.get(randomCode).get());
 	}
 }

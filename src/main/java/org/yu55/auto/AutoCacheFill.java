@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile("auto")
 class AutoCacheFill {
+
+	private static final Logger logger = LoggerFactory.getLogger(AutoCacheFill.class);
 
 	private static final List<String> SAMPLE_COUNTRY_CODES = Arrays.asList("AF", "AX",
 			"AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "AR", "AM", "AW", "AU", "AT",
@@ -48,7 +52,7 @@ class AutoCacheFill {
 	public void retrieveCountry() {
 		String randomCode = SAMPLE_COUNTRY_CODES
 				.get(this.random.nextInt(SAMPLE_COUNTRY_CODES.size()));
-		System.out.println("Looking for country with code '" + randomCode + "'");
+		logger.info("Looking for country with code '{}'", randomCode);
 		this.countryRepository.findByCode(randomCode);
 	}
 
